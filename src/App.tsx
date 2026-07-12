@@ -301,7 +301,7 @@ export default function App() {
       
       {/* Elevated Top Navigation Bar & Unified Control Center */}
       {!isTheaterMode && (
-        <header className="h-14 border-b border-gray-200 bg-white flex items-center justify-between px-4 md:px-6 shrink-0 sticky top-0 z-40 text-editorial-text select-none" id="app_header">
+        <header className="h-14 border-b border-gray-200 bg-white flex items-center justify-between px-4 md:px-6 shrink-0 sticky top-0 z-40 text-editorial-text select-none print:hidden" id="app_header">
           {/* Left: App Identity and Slide Map Modal Button */}
           <div className="flex items-center gap-3">
             <div className="w-6 h-6 bg-brand-green rounded-sm flex items-center justify-center text-white text-[10px] font-bold shrink-0">BUS</div>
@@ -358,6 +358,17 @@ export default function App() {
               <span className="sm:hidden">Notes</span>
             </button>
 
+            {/* Export PDF Button */}
+            <button
+              onClick={() => window.print()}
+              className="px-2.5 py-1 text-xs font-semibold rounded-full border border-gray-200 bg-white text-brand-gold hover:bg-amber-50/50 transition-all cursor-pointer flex items-center gap-1.5"
+              id="export_pdf_btn"
+              title="Print Slides or Export as PDF (Excluding Curator Notes)"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>Export PDF</span>
+            </button>
+
             {/* Keyboard Guide Toggle */}
             <button
               onClick={() => setShowKeyboardHelp(true)}
@@ -405,7 +416,7 @@ export default function App() {
       )}
 
       {/* Main Workspace Frame */}
-      <main className="flex-1 flex overflow-hidden" id="presentation_workspace">
+      <main className="flex-1 flex overflow-hidden print:hidden" id="presentation_workspace">
         <section className="flex-1 p-4 sm:p-6 md:p-12 lg:p-16 flex flex-col relative overflow-y-auto bg-editorial-bg" id="stage_container">
           
           {/* Main Slide Layout Card */}
@@ -1314,6 +1325,381 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Hidden container styled exclusively for high-fidelity PDF / Printing */}
+      <div className="hidden print:block bg-white text-editorial-text font-serif p-0" id="pdf_print_container">
+        
+        {/* Cover / Preface Page */}
+        <div className="print-page-break p-12 min-h-screen flex flex-col justify-between border-b border-gray-100">
+          <div className="border-b-2 border-brand-gold pb-6">
+            <span className="text-xs uppercase tracking-widest font-sans font-bold text-brand-gold">Published Portfolio</span>
+            <h1 className="text-4xl font-serif font-bold mt-2 text-editorial-text">The First Bank of the United States</h1>
+            <p className="text-sm font-sans text-gray-500 mt-1">Historical Balance Sheet Evolution (1791–1793)</p>
+          </div>
+          <div className="my-auto py-12 space-y-6">
+            <p className="text-base text-gray-700 leading-relaxed max-w-2xl font-serif">
+              This publication traces the chronological development of early America's central credit institution. 
+              Utilizing pioneering weekly balance sheet reconstructions, we observe the transformation of sovereign debt and mercantile reserves in the first two years of the bank's active operation.
+            </p>
+            <div className="border-t border-gray-200 pt-6 max-w-sm">
+              <p className="text-xs font-sans font-bold text-gray-400 uppercase tracking-wider">Historical Source Attribution</p>
+              <p className="text-sm font-serif text-editorial-text font-bold mt-1">James O. Wettereau Collection</p>
+              <p className="text-xs font-sans text-gray-500">NYU Department of History (1902–1961)</p>
+            </div>
+          </div>
+          <div className="border-t border-gray-100 pt-4 flex justify-between items-center text-[10px] text-gray-400 font-sans uppercase tracking-wider">
+            <span>Fiscal History Series</span>
+            <span>Page 1</span>
+          </div>
+        </div>
+
+        {/* Slide 1: Tribute */}
+        <div className="print-page-break p-12 min-h-screen flex flex-col justify-between border-b border-gray-100">
+          <div className="flex justify-between items-start border-b border-gray-150 pb-4">
+            <div>
+              <span className="text-[10px] font-mono font-bold text-brand-gold uppercase tracking-widest">Slide 01 • History</span>
+              <h2 className="text-3xl font-serif font-bold text-editorial-text mt-1">A Tribute to James O. Wettereau</h2>
+            </div>
+            <span className="text-sm font-sans text-gray-400 font-bold">Page 2</span>
+          </div>
+          <div className="my-auto py-8 max-w-2xl mx-auto text-center space-y-6">
+            <div className="w-12 h-12 bg-stone-100 border border-stone-200 rounded-full flex items-center justify-center text-brand-green mx-auto">
+              <Award className="w-6 h-6" />
+            </div>
+            <div className="border-y border-gray-200 py-4 w-full max-w-md mx-auto">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-brand-gold block">In Memoriam</span>
+              <h3 className="font-serif text-2xl font-bold text-editorial-text mt-1">James O. Wettereau</h3>
+              <span className="text-xs text-gray-500 block mt-0.5">1902 — 1961</span>
+            </div>
+            <p className="text-sm font-serif italic text-gray-600 leading-relaxed max-w-lg mx-auto">
+              "He dedicated his lifetime to transcribing scattered treasury drafts and branch sheets, reconstructing the first national bank's history."
+            </p>
+            <p className="text-xs font-sans text-gray-500 max-w-md mx-auto">
+              His pioneering archival work reconstructed hundreds of balance sheets of the First Bank of the United States and made modern monetary research possible.
+            </p>
+          </div>
+          <div className="border-t border-gray-150 pt-4 flex justify-between items-center text-[9px] text-gray-400 font-sans uppercase tracking-wider">
+            <span>First Bank of the United States</span>
+            <span>Wettereau Reconstruction Project</span>
+          </div>
+        </div>
+
+        {/* Slide 2: Source */}
+        <div className="print-page-break p-12 min-h-screen flex flex-col justify-between border-b border-gray-100">
+          <div className="flex justify-between items-start border-b border-gray-150 pb-4">
+            <div>
+              <span className="text-[10px] font-mono font-bold text-stone-500 uppercase tracking-widest">Slide 02 • Source</span>
+              <h2 className="text-3xl font-serif font-bold text-editorial-text mt-1">Primary Source Material</h2>
+            </div>
+            <span className="text-sm font-sans text-gray-400 font-bold">Page 3</span>
+          </div>
+          <div className="my-auto py-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center max-w-3xl mx-auto">
+            <div className="md:col-span-4 flex justify-center">
+              <div className="w-32 h-44 bg-brand-green border-4 border-[#3D4D3F] rounded shadow-md flex flex-col justify-between p-3 text-center text-white">
+                <span className="text-[6px] font-mono uppercase tracking-widest text-brand-gold">MONETARY RECONSTRUCTIONS</span>
+                <div className="space-y-0.5">
+                  <h4 className="font-serif text-[9px] font-bold uppercase leading-tight">STATISTICAL RECORDS</h4>
+                  <p className="text-[7px] text-gray-100 font-serif font-sans">of the First Bank of the US</p>
+                </div>
+                <span className="text-[7px] font-serif text-gray-200 italic">James O. Wettereau</span>
+              </div>
+            </div>
+            <div className="md:col-span-8 space-y-4">
+              <p className="text-brand-gold font-sans font-bold tracking-wider uppercase text-xs">Statistical Records of the First Bank</p>
+              <p className="text-gray-700 leading-relaxed text-sm font-serif">
+                This comprehensive publication reconstructs the Bank's weekly balance sheets from original archival records and correspondence.
+              </p>
+              <p className="text-gray-700 leading-relaxed text-sm font-serif">
+                The balance sheets provide a unique opportunity to observe the development of America's first national bank almost week by week, offering insight into the early republic's credit architecture.
+              </p>
+            </div>
+          </div>
+          <div className="border-t border-gray-150 pt-4 flex justify-between items-center text-[9px] text-gray-400 font-sans uppercase tracking-wider">
+            <span>First Bank of the United States</span>
+            <span>Wettereau Reconstruction Project</span>
+          </div>
+        </div>
+
+        {/* Slide 3: Ledger */}
+        <div className="print-page-break p-12 min-h-screen flex flex-col justify-between border-b border-gray-100">
+          <div className="flex justify-between items-start border-b border-gray-150 pb-4">
+            <div>
+              <span className="text-[10px] font-mono font-bold text-brand-green uppercase tracking-widest">Slide 03 • Ledger</span>
+              <h2 className="text-3xl font-serif font-bold text-editorial-text mt-1">First Published Balance Sheet</h2>
+              <p className="text-xs text-gray-400 font-sans uppercase mt-0.5">December 26, 1791</p>
+            </div>
+            <span className="text-sm font-sans text-gray-400 font-bold">Page 4</span>
+          </div>
+          
+          <div className="my-auto py-6 max-w-3xl mx-auto w-full space-y-6">
+            <div className="grid grid-cols-2 gap-6 font-mono text-xs border border-gray-300 rounded-lg overflow-hidden">
+              <div className="p-4 bg-stone-50 border-r border-gray-200">
+                <h3 className="font-serif font-bold text-brand-green text-sm border-b border-gray-200 pb-2 mb-3 uppercase tracking-wider">Assets</h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between py-1 border-b border-gray-100">
+                    <span className="text-gray-500 font-sans">Bills Discounted</span>
+                    <span className="font-bold text-[#1A1C1E]">$688,775</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-gray-100">
+                    <span className="text-gray-500 font-sans">Cash on Hand</span>
+                    <span className="font-bold text-[#1A1C1E]">$320,581</span>
+                  </div>
+                </div>
+                <div className="pt-4 mt-6 border-t-2 border-gray-200 flex justify-between font-bold text-[#1A1C1E] text-sm">
+                  <span className="font-serif">Total Assets</span>
+                  <span>$1,009,356</span>
+                </div>
+              </div>
+
+              <div className="p-4 bg-white">
+                <h3 className="font-serif font-bold text-brand-gold text-sm border-b border-gray-200 pb-2 mb-3 uppercase tracking-wider">Liabilities & Capital</h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between py-1 border-b border-gray-100">
+                    <span className="text-gray-500 font-sans">Capital Stock</span>
+                    <span className="font-bold text-[#1A1C1E]">$496,550</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-gray-100">
+                    <span className="text-gray-500 font-sans">Deposits</span>
+                    <span className="font-bold text-[#1A1C1E]">$492,262</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-gray-100">
+                    <span className="text-gray-500 font-sans">Bank Notes</span>
+                    <span className="font-bold text-[#1A1C1E]">$14,270</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-gray-100">
+                    <span className="text-gray-500 font-sans">Post Notes</span>
+                    <span className="font-bold text-[#1A1C1E]">$3,598</span>
+                  </div>
+                </div>
+                <div className="pt-4 mt-2 border-t-2 border-gray-200 flex justify-between font-bold text-[#1A1C1E] text-sm">
+                  <span className="font-serif">Total Liabilities & Cap</span>
+                  <span>$1,006,680</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-[#FDFCFB] border-l-4 border-brand-gold p-4 rounded-r-lg shadow-xs">
+              <span className="text-[10px] font-sans font-bold text-brand-gold uppercase tracking-wider block">Key Operational Insight</span>
+              <p className="text-gray-700 font-serif italic text-sm leading-relaxed mt-1">
+                Immediately after opening, nearly 70% of the Bank's assets consisted of discounted bills, indicating that the Bank had already begun actively creating credit through discounting operations.
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-150 pt-4 flex justify-between items-center text-[9px] text-gray-400 font-sans uppercase tracking-wider">
+            <span>First Bank of the United States</span>
+            <span>Wettereau Reconstruction Project</span>
+          </div>
+        </div>
+
+        {/* Slide 4: Mechanics - Deposits Begin to Grow */}
+        <div className="print-page-break p-12 min-h-screen flex flex-col justify-between border-b border-gray-100">
+          <div className="flex justify-between items-start border-b border-gray-150 pb-4">
+            <div>
+              <span className="text-[10px] font-mono font-bold text-brand-green uppercase tracking-widest">Slide 04 • Mechanics</span>
+              <h2 className="text-3xl font-serif font-bold text-editorial-text mt-1">Deposits Begin to Grow</h2>
+            </div>
+            <span className="text-sm font-sans text-gray-400 font-bold">Page 5</span>
+          </div>
+
+          <div className="my-auto py-8 max-w-2xl mx-auto space-y-6">
+            <p className="text-gray-800 font-serif leading-relaxed text-base">
+              When customers deposited specie (gold and silver), the Bank simultaneously:
+            </p>
+            <div className="bg-stone-50 border border-gray-200 rounded-xl p-4 space-y-2 font-serif text-sm">
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-brand-green"></span>
+                <span>Increased its cash assets (+ Cash on Hand)</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-brand-gold"></span>
+                <span>Recorded customer deposits as liabilities (+ Deposits)</span>
+              </div>
+            </div>
+
+            <div className="border border-gray-200 rounded-lg p-4 bg-white space-y-3 font-mono text-xs">
+              <span className="text-[10px] font-sans font-bold text-gray-400 uppercase tracking-wider block">Chronological Specie Movement (Dec 1791)</span>
+              <div className="grid grid-cols-3 gap-2 text-center border-b border-gray-100 pb-2 font-bold font-sans">
+                <span>Metric</span>
+                <span>December 26</span>
+                <span>December 29</span>
+              </div>
+              <div className="grid grid-cols-3 gap-2 text-center py-1 border-b border-gray-50">
+                <span className="text-left font-sans text-gray-500">Cash (Vault Specie)</span>
+                <span>$320,581</span>
+                <span className="text-brand-green font-bold">$706,048</span>
+              </div>
+              <div className="grid grid-cols-3 gap-2 text-center py-1">
+                <span className="text-left font-sans text-gray-500">Deposits (Liabilities)</span>
+                <span>$492,262</span>
+                <span className="text-brand-gold font-bold">$1,031,125</span>
+              </div>
+            </div>
+
+            <div className="bg-stone-50 border-l-4 border-brand-green p-4 rounded-r-lg">
+              <span className="text-[10px] font-sans font-bold text-brand-green uppercase tracking-wider block">Balance Sheet Expansion Effect</span>
+              <p className="text-gray-700 font-serif italic text-sm leading-relaxed mt-1">
+                Every specie deposit expanded both sides of the balance sheet. Assets (Cash) = Liabilities (Deposits) grew in parallel.
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-150 pt-4 flex justify-between items-center text-[9px] text-gray-400 font-sans uppercase tracking-wider">
+            <span>First Bank of the United States</span>
+            <span>Wettereau Reconstruction Project</span>
+          </div>
+        </div>
+
+        {/* Slide 5: Mechanics - Multi-factor expansion */}
+        <div className="print-page-break p-12 min-h-screen flex flex-col justify-between border-b border-gray-100">
+          <div className="flex justify-between items-start border-b border-gray-150 pb-4">
+            <div>
+              <span className="text-[10px] font-mono font-bold text-brand-green uppercase tracking-widest">Slide 05 • Mechanics</span>
+              <h2 className="text-3xl font-serif font-bold text-editorial-text mt-1">Deposits, Notes, and Discounts Expand Together</h2>
+            </div>
+            <span className="text-sm font-sans text-gray-400 font-bold">Page 6</span>
+          </div>
+
+          <div className="my-auto py-6 max-w-3xl mx-auto space-y-6">
+            <p className="text-gray-800 font-serif leading-relaxed text-sm md:text-base">
+              As the Bank began operating, its balance sheet expanded through three primarily connected transaction pathways:
+            </p>
+
+            <div className="grid grid-cols-3 gap-4 font-serif text-xs">
+              <div className="bg-stone-50 border border-gray-200 rounded-lg p-4 space-y-2">
+                <span className="text-[10px] font-sans font-bold text-brand-green uppercase tracking-wider block">1. Specie Deposit</span>
+                <p className="text-gray-600 leading-normal">Customer brings physical gold or silver specie into the vault.</p>
+                <div className="font-mono text-[9px] text-brand-green font-bold bg-white p-1 rounded border border-gray-150 text-center mt-2">
+                  + Cash on Hand<br />+ Deposit Money
+                </div>
+              </div>
+
+              <div className="bg-stone-50 border border-gray-200 rounded-lg p-4 space-y-2">
+                <span className="text-[10px] font-sans font-bold text-brand-gold uppercase tracking-wider block">2. Currency Conversion</span>
+                <p className="text-gray-600 leading-normal">Depositor converts bank deposit balance into circulating paper notes.</p>
+                <div className="font-mono text-[9px] text-brand-gold font-bold bg-white p-1 rounded border border-gray-150 text-center mt-2">
+                  − Deposit Money<br />+ Bank Notes in Circ.
+                </div>
+              </div>
+
+              <div className="bg-stone-50 border border-gray-200 rounded-lg p-4 space-y-2">
+                <span className="text-[10px] font-sans font-bold text-editorial-text uppercase tracking-wider block">3. Commercial Discount</span>
+                <p className="text-gray-600 leading-normal">Bank acquires commercial bill of exchange and credits merchant's balance.</p>
+                <div className="font-mono text-[9px] text-[#1A1C1E] font-bold bg-white p-1 rounded border border-gray-150 text-center mt-2">
+                  + Bills Discounted<br />+ Deposits / Banknotes
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white border border-gray-200 rounded-lg p-4 font-mono text-xs space-y-1">
+              <span className="text-[10px] font-sans font-bold text-gray-400 block uppercase tracking-wider mb-2">Double-Entry Ledger Architecture:</span>
+              <div className="flex justify-between py-1 border-b border-gray-50">
+                <span className="text-gray-600">Specie deposited</span>
+                <span className="font-semibold text-brand-green">Cash (+A) / Deposits (+L)</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-gray-50">
+                <span className="text-gray-600">Deposit converted into notes</span>
+                <span className="font-semibold text-brand-gold">Deposits (-L) / Bank Notes (+L)</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span className="text-gray-600">Bill discounted</span>
+                <span className="font-semibold text-gray-900">Bills Discounted (+A) / Deposits (+L)</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-150 pt-4 flex justify-between items-center text-[9px] text-gray-400 font-sans uppercase tracking-wider">
+            <span>First Bank of the United States</span>
+            <span>Wettereau Reconstruction Project</span>
+          </div>
+        </div>
+
+        {/* Slide 6: Sovereign - Treasury Deposits */}
+        <div className="print-page-break p-12 min-h-screen flex flex-col justify-between border-b border-gray-100">
+          <div className="flex justify-between items-start border-b border-gray-150 pb-4">
+            <div>
+              <span className="text-[10px] font-mono font-bold text-brand-gold uppercase tracking-widest">Slide 06 • Sovereign</span>
+              <h2 className="text-3xl font-serif font-bold text-editorial-text mt-1">Treasury Deposits Appear</h2>
+              <p className="text-xs text-gray-400 font-sans uppercase mt-0.5">March 9, 1792</p>
+            </div>
+            <span className="text-sm font-sans text-gray-400 font-bold">Page 7</span>
+          </div>
+
+          <div className="my-auto py-8 max-w-2xl mx-auto space-y-6">
+            <p className="text-gray-800 font-serif leading-relaxed text-sm md:text-base">
+              On March 9, 1792, for the first time in the bank's accounting history, deposits were split and reported separately:
+            </p>
+
+            <div className="grid grid-cols-2 gap-4 font-mono text-xs border border-gray-200 rounded-lg p-4 bg-stone-50">
+              <div className="space-y-1">
+                <span className="text-[10px] font-sans font-bold text-brand-green uppercase tracking-wider block">Government Deposits</span>
+                <span className="text-lg font-bold text-[#1A1C1E]">$599,870</span>
+                <span className="text-gray-400 block font-sans text-[10px]">(51.3% of total)</span>
+              </div>
+              <div className="space-y-1 border-l border-gray-200 pl-4">
+                <span className="text-[10px] font-sans font-bold text-brand-gold uppercase tracking-wider block">Private Deposits</span>
+                <span className="text-lg font-bold text-[#1A1C1E]">$569,550</span>
+                <span className="text-gray-400 block font-sans text-[10px]">(48.7% of total)</span>
+              </div>
+            </div>
+
+            <div className="space-y-3 font-serif text-sm">
+              <h3 className="font-bold text-[#1A1C1E] text-base">Key Sovereignty Milestone</h3>
+              <p className="text-gray-700 leading-relaxed font-sans text-xs">
+                The separate appearance of Government Deposits marks the beginning of the First Bank's official role as the federal government's fiscal agent, facilitating the transfer of customs revenue and public tax drafts across the coastal republic.
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-150 pt-4 flex justify-between items-center text-[9px] text-gray-400 font-sans uppercase tracking-wider">
+            <span>First Bank of the United States</span>
+            <span>Wettereau Reconstruction Project</span>
+          </div>
+        </div>
+
+        {/* Slide 7: Sovereign - The $2 Million Loan */}
+        <div className="print-page-break p-12 min-h-screen flex flex-col justify-between border-b border-gray-100">
+          <div className="flex justify-between items-start border-b border-gray-150 pb-4">
+            <div>
+              <span className="text-[10px] font-mono font-bold text-brand-gold uppercase tracking-widest">Slide 07 • Sovereign</span>
+              <h2 className="text-3xl font-serif font-bold text-editorial-text mt-1">The $2 Million Loan to the United States</h2>
+              <p className="text-xs text-gray-400 font-sans uppercase mt-0.5">June 29, 1792</p>
+            </div>
+            <span className="text-sm font-sans text-gray-400 font-bold">Page 8</span>
+          </div>
+
+          <div className="my-auto py-8 max-w-2xl mx-auto space-y-6">
+            <p className="text-gray-800 font-serif leading-relaxed text-sm md:text-base">
+              A major credit expansion occurs on June 29, 1792, as the federal government completes its structural stock purchase:
+            </p>
+
+            <div className="bg-stone-50 border border-gray-200 rounded-lg p-4 font-mono text-xs space-y-2">
+              <span className="text-[10px] font-sans font-bold text-gray-400 uppercase tracking-wider block">Recorded Asset on Balance Sheet:</span>
+              <div className="flex justify-between py-1 border-b border-gray-100">
+                <span>Loaned U.S. No. 1 & No. 3</span>
+                <span className="font-bold text-gray-900">$2,000,000</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span>Loaned U.S. No. 2</span>
+                <span className="font-bold text-gray-900">$100,000</span>
+              </div>
+            </div>
+
+            <div className="space-y-2 font-serif text-sm">
+              <span className="font-bold text-[#1A1C1E] text-base">Section 11 Charter Fulfillment</span>
+              <p className="text-gray-700 leading-relaxed font-sans text-xs">
+                This transaction represents the fulfillment of Section 11 of the Bank Charter. Alexander Hamilton utilized a circular credit scheme: the Treasury subscribed to $2 million of BUS stock, and the bank simultaneously loaned $2 million back to the Treasury to pay for that stock. The loan was repaid over 10 years using the stock's dividends.
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-150 pt-4 flex justify-between items-center text-[9px] text-gray-400 font-sans uppercase tracking-wider">
+            <span>First Bank of the United States</span>
+            <span>Wettereau Reconstruction Project</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }
