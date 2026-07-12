@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: './',
+    base: '/The-First-Bank-of-United-States-1791-1793-/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
