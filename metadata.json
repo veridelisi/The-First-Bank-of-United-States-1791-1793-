@@ -1,0 +1,6 @@
+{
+  "name": "First Bank Balance Sheet Presentation",
+  "description": "An interactive, highly polished presentation exploring the balance sheet evolution of the First Bank of the United States (1791–1793), based on the pioneering reconstruction by James O. Wettereau.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
